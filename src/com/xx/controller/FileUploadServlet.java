@@ -24,7 +24,7 @@ public class FileUploadServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) {
 		User user = (User)request.getSession().getAttribute("user");
 		String owner = user.getUsername();
-		String box = "D:/workspace_jee/git/MVC-market/WebContent/fileupload";//上传文件的存放目录
+		String box = "D:/workspace_jee/git01_mvc-market/WebContent/fileupload";//上传文件的存放目录
 		String fileName = ""; //文件原名称
 		String name = "";
 		

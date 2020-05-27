@@ -4,13 +4,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.junit.Test;
+
 import com.xx.model.Files;
 import com.xx.util.DBUtil;
 
 public class TestFileDao {
-	public void Test() {
-		
+	@Test
+	public void Test01() {
+		FileURL("111"); //查找数据库中存在的用户
 	}
+	@Test
+	public void Test02() {
+		FileURL("wql"); //查找数据库中不存在的用户
+	}
+	
+	
 	
 /* 通过用户名查询文件地址 */
 	public static Files FileURL(String owner) {
@@ -27,11 +36,14 @@ public class TestFileDao {
 			if(rs.next()) {
 				String filename = rs.getString("filename");
 				Files FileURL = new Files(0,filename,null,null,null);
+				System.out.println("已找到数据！");
 				return FileURL;
 			}else {
+				System.out.println("未找到数据！");
 				return null;
 			}
 		} catch (Exception e) {
+			System.out.println("数据库出现错误！");
 			return null;
 		}finally {
 			DBUtil.closeJDBC(rs, pstmt, con);
@@ -60,8 +72,10 @@ public class TestFileDao {
 				pstmt1.setString(4, owner);
 				int result = pstmt1.executeUpdate();
 				if(result > 0) {
+					System.out.println("已找到数据！");
 					return true;
 				}else {
+					System.out.println("未找到数据！");
 					return false;
 				}
 			}else {
@@ -74,12 +88,14 @@ public class TestFileDao {
 				
 				int result = pstmt2.executeUpdate();
 				if(result > 0) {
+					System.out.println("头像数据已更新");
 					return true;
 				}else {
 					return false;
 				}
 			}
 		} catch (Exception e) {
+			System.out.println("数据库出现错误！");
 			return false;
 		} finally {
 			DBUtil.closeJDBC(rs, pstmt, pstmt1, pstmt2, con);
